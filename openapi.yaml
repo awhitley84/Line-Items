@@ -3,7 +3,7 @@ info:
   title: Water Remediation Line Items API
   version: 1.0.0
 servers:
-  - url: https://api.example.com  # required placeholder URL
+  - url: https://api.example.com  # placeholder for GPT to accept spec
 paths:
   /line-items:
     get:
@@ -17,71 +17,59 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LineItem'
-                example:
-                  - category_code: WTR
-                    selector_code: ACT
-                    description: Remove wet ceiling tile & drywall and bag for disposal
-                    unit: SF
-                    cost: "$1.34"
-                  - category_code: WTR
-                    selector_code: ACT3
-                    description: Remove wet ceiling tile & drywall and bag - Cat 3
-                    unit: SF
-                    cost: "$1.96"
-                  - category_code: WTR
-                    selector_code: ACT3A
-                    description: Remove wet ceiling tile & drywall and bag - Cat 3A
-                    unit: SF
-                    cost: "$2.88"
-                  - category_code: WTR
-                    selector_code: BARR
-                    description: Containment Barrier/Airlock/Decon. Chamber
-                    unit: SF
-                    cost: "$1.03"
-                  - category_code: WTR
-                    selector_code: BARRA
-                    description: Containment Barrier - after hours
-                    unit: SF
-                    cost: "$1.44"
-                  - category_code: WTR
-                    selector_code: BARRF
-                    description: Containment Barrier - air filter
-                    unit: EA
-                    cost: "$14.36"
-                  - category_code: WTR
-                    selector_code: BAG
-                    description: Plastic bag - used for disposal of contaminated materials
-                    unit: EA
-                    cost: "$3.02"
-                  - category_code: WTR
-                    selector_code: BASE
-                    description: Tear out baseboard
-                    unit: LF
-                    cost: "$0.58"
-                  - category_code: WTR
-                    selector_code: BASEA
-                    description: Tear out baseboard - after hours
-                    unit: LF
-                    cost: "$0.88"
-                  - category_code: WTR
-                    selector_code: BASEB
-                    description: Tear out baseboard and bag for disposal - up to Cat 3
-                    unit: LF
-                    cost: "$1.49"
+                  $ref: '#/$defs/LineItem'
+                examples:
+                  sample:
+                    summary: Example line items
+                    value:
+                      - category_code: WTR
+                        selector_code: ACT
+                        description: Remove wet ceiling tile & drywall and bag for disposal
+                        unit: SF
+                        cost: "$1.34"
+                      - category_code: WTR
+                        selector_code: ACT3
+                        description: Remove wet ceiling tile & drywall and bag - Cat 3
+                        unit: SF
+                        cost: "$1.96"
+                      - category_code: WTR
+                        selector_code: BASE
+                        description: Tear out baseboard
+                        unit: LF
+                        cost: "$0.58"
+                      - category_code: WTR
+                        selector_code: BARRF
+                        description: Containment Barrier - air filter
+                        unit: EA
+                        cost: "$14.36"
+                      - category_code: WTR
+                        selector_code: BAG
+                        description: Plastic bag - used for disposal of contaminated materials
+                        unit: EA
+                        cost: "$3.02"
 
-components:
-  schemas:
-    LineItem:
-      type: object
-      properties:
-        category_code:
-          type: string
-        selector_code:
-          type: string
-        description:
-          type: string
-        unit:
-          type: string
-        cost:
-          type: string
+$defs:
+  LineItem:
+    type: object
+    properties:
+      category_code:
+        type: string
+        description: The code for the service category (e.g., WTR)
+      selector_code:
+        type: string
+        description: The internal selector or pricing code
+      description:
+        type: string
+        description: Description of the remediation work
+      unit:
+        type: string
+        description: Unit of measure (e.g., SF, LF, EA)
+      cost:
+        type: string
+        description: The price of the line item
+    required:
+      - category_code
+      - selector_code
+      - description
+      - unit
+      - cost
